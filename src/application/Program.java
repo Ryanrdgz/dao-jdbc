@@ -35,6 +35,13 @@ public class Program {
 		Seller newSeller = new Seller(null, "Greg", "greg@gmail.com", new Date(), 4000.0, department );
 		sellerdao.insert(newSeller);
 		System.out.println("Inserted! New id = " + newSeller.getId());
+		
+		System.out.println("\n=== TESTE 5: Seller update ===");
+		seller = sellerdao.findById(1); //Procurar vendedor de id 1, carrega os dados dele no objeto seller
+		seller.setName("MarthA Waine"); //Dei novo pra ele
+		sellerdao.update(seller); // Salvo novo vendedor, atualiza dados dele
+		System.out.println("Update completed");
+		
 	}
 
 }
