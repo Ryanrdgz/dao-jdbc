@@ -90,7 +90,24 @@ public class SellerDaoJDBC implements SellerDao {
 
 	@Override
 	public void deleteById(Integer id) {
-		
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("DELETE FROM seller WHERE Id = ?"); // 'É pra apagar quando o id for igual a ? -> id digitado para apagar'
+			
+			st.setInt(1, id);
+			
+			int rows = st.executeUpdate();
+			
+			if (rows == 0) { // o if serve para caso apague um id que não exista, ai mostra a exceção
+				throw new DbException("Unexpected error! No rows affected!");
+			}
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override
